@@ -3,6 +3,9 @@ from flask import Flask, request, jsonify, Response
 
 app = Flask(__name__)
 
+from ledger import bp as ledger_bp
+app.register_blueprint(ledger_bp)
+
 EMAIL = "23f2005605@ds.study.iitm.ac.in".strip().lower()
 
 
@@ -16,7 +19,6 @@ def handle(msg):
     msg_id = msg.get("id")
     params = msg.get("params") or {}
 
-    # notifications have no id -> no response body needed
     if msg_id is None:
         return None
 
